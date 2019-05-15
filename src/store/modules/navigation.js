@@ -1,8 +1,6 @@
-function initialState() {
-  return {
-    isNavigationDrawer: false
-  };
-}
+const initialState = () => ({
+  isNavigationDrawer: false
+});
 
 export default {
   namespaced: true,

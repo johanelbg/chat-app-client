@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-toolbar-side-icon @click="setDrawer(true)" />
+    <v-toolbar-side-icon @click="setDrawer(!isNavigationDrawer)" />
     <v-toolbar-title>Title</v-toolbar-title>
   </v-toolbar>
 </template>
