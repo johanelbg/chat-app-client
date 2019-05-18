@@ -33,6 +33,9 @@ export default {
     },
     addRoom(state, room) {
       state.rooms = [...state.rooms, room];
+    },
+    setMessage(state, message) {
+      state.chats = [...state.chats, message];
     }
   },
   actions: {
@@ -58,6 +61,17 @@ export default {
       const url = `chat/${roomId}`;
       const { data } = await axios.get(url);
       commit("setChats", data);
+    },
+
+    async sendMessage({ commit, state }, message) {
+      const url = `chat`;
+      const messageObj = {
+        room: state.selectedRoom._id,
+        nickname: state.nickname,
+        message: message
+      };
+      const { data } = await axios.post(url, messageObj);
+      commit("setMessage", data);
     }
   }
 };
