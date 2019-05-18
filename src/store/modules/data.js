@@ -2,14 +2,17 @@ import axios from "@/utils/axios";
 
 const initialState = () => ({
   nickname: "",
-  rooms: []
+  rooms: [],
+  chats: [],
+  selectedRoom: {}
 });
 
 export default {
   namespaced: true,
   state: initialState(),
   getters: {
-    isLoggedIn: ({ nickname }) => !!nickname
+    isLoggedIn: ({ nickname }) => !!nickname,
+    isRoomSelected: ({ selectedRoom }) => !!Object.keys(selectedRoom).length
   },
   mutations: {
     setNickname(state, value) {
@@ -17,6 +20,12 @@ export default {
     },
     setRooms(state, rooms) {
       state.rooms = rooms;
+    },
+    setSelectedRoom(state, selectedRoom) {
+      state.selectedRoom = Object.assign({}, state.selectedRoom, selectedRoom);
+    },
+    setChats(state, chats) {
+      state.chats = chats;
     },
     removeRoom(state, roomId) {
       const updatedRooms = state.rooms.filter(room => room._id !== roomId);
@@ -43,6 +52,12 @@ export default {
       const url = `room/${roomId}`;
       await axios.delete(url);
       commit("removeRoom", roomId);
+    },
+
+    async getChatByRoomId({ commit }, roomId) {
+      const url = `chat/${roomId}`;
+      const { data } = await axios.get(url);
+      commit("setChats", data);
     }
   }
 };

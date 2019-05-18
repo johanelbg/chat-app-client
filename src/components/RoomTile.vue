@@ -1,6 +1,6 @@
 <template>
   <v-list subheader>
-    <v-list-tile v-for="room in rooms" :key="room._id" avatar @click="$emit('join', room._id)">
+    <v-list-tile v-for="room in rooms" :key="room._id" avatar @click="$emit('join', room)">
       <v-list-tile-content>
         <v-list-tile-title v-html="room.room_name"></v-list-tile-title>
       </v-list-tile-content>

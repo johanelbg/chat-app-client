@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer">
+  <v-navigation-drawer v-model="drawer" absolute>
     <v-toolbar flat>
       <v-list>
         <v-list-tile>
@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     ...mapMutations("navigation", ["setDrawer"]),
+    ...mapMutations("data", ["setSelectedRoom"]),
     ...mapActions("data", ["getAllRooms", "deleteRoom"]),
     async handleGetRooms() {
       try {
@@ -68,8 +69,9 @@ export default {
       await this.deleteRoom(roomId);
     },
 
-    handleJoinRoom(roomId) {
-      console.log("join", roomId);
+    handleJoinRoom(roomObj) {
+      this.setSelectedRoom(roomObj);
+      this.setDrawer(false);
     }
   }
 };
