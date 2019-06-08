@@ -20,6 +20,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
   components: {
     ChatTile: () => import("@/components/ChatTile")
@@ -49,9 +50,19 @@ export default {
     async handleSendMessage() {
       try {
         await this.sendMessage(this.message);
+        await this.$socket.emit("postMessage", this.message);
       } finally {
         this.message = "";
       }
+    }
+  },
+
+  sockets: {
+    connect: function() {
+      console.log("socket connected");
+    },
+    postMessage: function(val) {
+      console.log("val", val);
     }
   },
 

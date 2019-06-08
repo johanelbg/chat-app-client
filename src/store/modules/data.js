@@ -70,8 +70,12 @@ export default {
         nickname: state.nickname,
         message: message
       };
+
       const { data } = await axios.post(url, messageObj);
-      commit("setMessage", data);
+
+      console.log(data);
+
+      commit("setMessage", messageObj);
     }
   }
 };
